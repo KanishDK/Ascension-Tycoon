@@ -21,8 +21,8 @@ export class UIManager {
 
     constructor(saveManager: SaveManager) {
         this.saveManager = saveManager;
-        this.container = document.getElementById('app') as HTMLElement;
-        if (!this.container) throw new Error("Root #app not found");
+        this.container = document.getElementById('game-root') as HTMLElement;
+        if (!this.container) throw new Error("Root #game-root not found");
 
         // UI Setup
         this.setupLayout();
