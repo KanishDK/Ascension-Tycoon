@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ascension: Trance Tycoon 2026 (v3.0)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap');
+
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-pink: #ff00ff;
+            --neon-purple: #bd00ff;
+            --neon-gold: #ffd700;
+            --bg-dark: #050510;
+            --panel-bg: #0f0f1f;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #e0e0e0;
+            font-family: 'Rajdhani', sans-serif;
+            overflow: hidden;
+            touch-action: manipulation;
+        }
+
+        h1,
+        h2,
+        h3,
+        .brand-font {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .neon-text-gold {
+            color: var(--neon-gold);
+            text-shadow: 0 0 10px var(--neon-gold);
+        }
+
+        .neon-text-blue {
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .neon-text-pink {
+            color: var(--neon-pink);
+            text-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        .panel {
+            background-color: var(--panel-bg);
+            border: 1px solid #333;
+            transition: all 0.2s;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        /* CRT Overlay */
+        .crt-overlay {
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            opacity: 0.15;
+        }
+
+        .hidden-view {
+            display: none !important;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes flash {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .animate-flash {
+            animation: flash 1s infinite;
+        }
+
+        @keyframes slide-up {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-40px);
+                opacity: 0;
+            }
+        }
+
+        .float-text {
+            position: absolute;
+            pointer-events: none;
+            animation: slide-up 1s forwards;
+            font-weight: bold;
+            text-shadow: 1px 1px 0 #000;
+            z-index: 100;
+        }
+
+        /* Poll Bar */
+        .poll-progress-strip {
+            background: repeating-linear-gradient(45deg,
+                    #000,
+                    #000 10px,
+                    #1a1a1a 10px,
+                    #1a1a1a 20px);
+        }
+    </style>
+</head>
+
+<body class="h-screen flex flex-col select-none">
+
+    <div class="crt-overlay"></div>
+    <div id="float-text-container" class="absolute inset-0 pointer-events-none overflow-hidden z-50"></div>
+
+    <!-- Intro Screen -->
+    <div id="intro-screen"
+        class="absolute inset-0 z-[60] bg-black flex flex-col items-center justify-center p-6 text-center transition-opacity duration-1000">
+        <h1 class="text-5xl md:text-8xl mb-2 neon-text-blue animate-float tracking-tighter">ASCENSION</h1>
+        <h2 class="text-xl md:text-2xl text-gray-400 mb-8 tracking-[0.5em] uppercase">Trance Tycoon v3.0</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl w-full pb-8">
+            <!-- Virtuoso -->
+            <div class="panel p-6 rounded-xl border border-gray-700 hover:border-blue-500 cursor-pointer group"
+                onclick="startGame('virtuoso')">
+                <i class="fas fa-headphones-alt text-5xl text-blue-400 mb-4"></i>
+                <h3 class="text-3xl mb-1 text-blue-400 brand-font">THE VIRTUOSO</h3>
+                <p class="text-gray-400 italic text-sm mb-4">"Respect the craft."</p>
+                <div class="bg-gray-900/50 p-2 text-sm text-left rounded">
+                    <div>Start: <span class="text-white">€100, 0 Fans</span></div>
+                    <div>Bonus: <span class="text-yellow-400">High Integrity (Campaign Hard Mode)</span></div>
+                </div>
+            </div>
+            <!-- Plant -->
+            <div class="panel p-6 rounded-xl border border-gray-700 hover:border-pink-500 cursor-pointer group"
+                onclick="startGame('plant')">
+                <i class="fas fa-money-bill-wave text-5xl text-pink-400 mb-4"></i>
+                <h3 class="text-3xl mb-1 text-pink-400 brand-font">THE PLANT</h3>
+                <p class="text-gray-400 italic text-sm mb-4">"Money talks, talent walks."</p>
+                <div class="bg-gray-900/50 p-2 text-sm text-left rounded">
+                    <div>Start: <span class="text-white">€10,000, 5k Bot Fans</span></div>
+                    <div>Bonus: <span class="text-yellow-400">Buy Votes (Campaign Easy Mode)</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="text-xs text-gray-600">v3.0.1 - Top 100 System Active</div>
+    </div>
+
+    <!-- Main Game UI -->
+    <div id="game-ui"
+        class="flex-1 flex flex-col md:flex-row overflow-hidden hidden-view opacity-0 transition-opacity duration-1000">
+
+        <!-- Sidebar -->
+        <nav class="hidden md:flex w-64 bg-black border-r border-gray-800 flex-col justify-between z-20">
+            <div>
+                <div class="p-6 text-center border-b border-gray-800 bg-black/50 backdrop-blur">
+                    <h1
+                        class="text-2xl brand-font tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-pink-500">
+                        ASCENSION</h1>
+                </div>
+                <div class="flex flex-col space-y-1 p-2">
+                    <button onclick="switchTab('dashboard')"
+                        class="nav-btn p-3 rounded hover:bg-gray-900 text-left flex items-center gap-4 text-blue-400 border border-transparent hover:border-gray-700">
+                        <i class="fas fa-chart-pie w-6 text-center"></i> <span class="font-bold">Dashboard</span>
+                    </button>
+                    <button onclick="switchTab('production')"
+                        class="nav-btn p-3 rounded hover:bg-gray-900 text-left flex items-center gap-4 text-gray-400 border border-transparent hover:border-gray-700">
+                        <i class="fas fa-sliders-h w-6 text-center"></i> <span class="font-bold">Studio</span>
+                    </button>
+                    <button onclick="switchTab('socials')"
+                        class="nav-btn p-3 rounded hover:bg-gray-900 text-left flex items-center gap-4 text-gray-400 border border-transparent hover:border-gray-700">
+                        <i class="fas fa-hashtag w-6 text-center"></i> <span class="font-bold">Social Media</span>
+                    </button>
+                    <button onclick="switchTab('tour')"
+                        class="nav-btn p-3 rounded hover:bg-gray-900 text-left flex items-center gap-4 text-gray-400 border border-transparent hover:border-gray-700">
+                        <i class="fas fa-plane-departure w-6 text-center"></i> <span class="font-bold">Gigs</span>
+                    </button>
+                    <!-- NEW POLL BUTTON -->
+                    <button id="nav-poll" onclick="switchTab('poll')"
+                        class="nav-btn p-3 rounded bg-yellow-900/20 hover:bg-yellow-900/40 text-left flex items-center gap-4 text-yellow-500 border border-yellow-800/50">
+                        <i class="fas fa-trophy w-6 text-center animate-pulse"></i> <span class="font-bold">Top 100
+                            Campaign</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="p-4 border-t border-gray-800 bg-gray-900/30">
+                <div class="flex justify-between items-end mb-1">
+                    <div class="text-[10px] text-gray-500 uppercase font-bold tracking-wider">World Ranking</div>
+                    <div class="text-xl font-bold text-white brand-font">#<span id="sidebar-rank">---</span></div>
+                </div>
+                <div class="text-[10px] text-gray-500 uppercase font-bold tracking-wider mb-1">Date</div>
+                <div class="text-sm font-mono text-blue-300" id="game-date">Day 1, Year 2026</div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col bg-gray-900 relative">
+
+            <!-- Header Stats -->
+            <header
+                class="h-16 bg-black border-b border-gray-800 flex items-center justify-between px-4 shadow-lg z-10">
+                <div class="flex space-x-6 text-sm md:text-base">
+                    <div class="flex items-center gap-2" title="Cash">
+                        <i class="fas fa-euro-sign text-green-400"></i>
+                        <span id="stat-cash" class="font-mono font-bold text-white">0</span>
+                    </div>
+                    <div class="flex items-center gap-2" title="Fans">
+                        <i class="fas fa-users text-pink-400"></i>
+                        <span id="stat-fans" class="font-mono font-bold text-white">0</span>
+                    </div>
+                    <div class="flex items-center gap-2" title="Energy">
+                        <i class="fas fa-bolt text-yellow-400"></i>
+                        <span id="stat-energy" class="font-mono font-bold text-white">100</span>
+                    </div>
+                </div>
+                <!-- Poll Timer Mini -->
+                <div class="hidden md:flex items-center gap-2 px-3 py-1 bg-gray-800 rounded border border-gray-700">
+                    <span class="text-xs text-gray-400 uppercase">Poll Countdown:</span>
+                    <span id="poll-timer" class="font-mono text-red-400 font-bold">365 Days</span>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div id="content-area"
+                class="flex-1 overflow-y-auto p-4 md:p-6 bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')]">
+
+                <!-- TAB: DASHBOARD -->
+                <div id="tab-dashboard" class="tab-content space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="panel p-4 rounded-lg border-l-4 border-blue-500">
+                            <div class="text-gray-500 text-xs uppercase">Booking Fee</div>
+                            <div class="text-2xl font-bold text-white">€<span id="dash-fee">0</span></div>
+                        </div>
+                        <div class="panel p-4 rounded-lg border-l-4 border-pink-500">
+                            <div class="text-gray-500 text-xs uppercase">Avg. Hype</div>
+                            <div class="text-2xl font-bold text-white"><span id="dash-hype">0</span>%</div>
+                        </div>
+                        <div class="panel p-4 rounded-lg border-l-4 border-green-500">
+                            <div class="text-gray-500 text-xs uppercase">Discography</div>
+                            <div class="text-2xl font-bold text-white"><span id="dash-tracks">0</span></div>
+                        </div>
+                        <div class="panel p-4 rounded-lg border-l-4 border-yellow-500">
+                            <div class="text-gray-500 text-xs uppercase">Last Poll Rank</div>
+                            <div class="text-2xl font-bold text-yellow-400">#<span id="dash-last-rank">N/A</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Rival News -->
+                    <div class="panel p-4 rounded border border-red-900/50 bg-red-900/10 flex items-center gap-4">
+                        <div class="bg-red-900/30 p-2 rounded-full"><i class="fas fa-crown text-yellow-500"></i></div>
+                        <div class="flex-1 overflow-hidden">
+                            <div class="text-xs text-red-400 font-bold uppercase">Rival: Quantum Solar</div>
+                            <div id="rival-news" class="text-sm text-gray-300 font-mono animate-pulse">Connecting...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: POLL CAMPAIGN (NEW) -->
+                <div id="tab-poll" class="tab-content hidden-view space-y-6">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-4xl brand-font neon-text-gold">TOP 100 VOTE</h2>
+                        <div class="text-right">
+                            <div class="text-xs text-gray-500 uppercase">Voting Status</div>
+                            <div id="poll-status" class="text-xl font-bold text-red-500">CLOSED</div>
+                        </div>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="w-full h-8 bg-gray-800 rounded-full border border-gray-600 overflow-hidden relative">
+                        <div class="poll-progress-strip h-full absolute inset-0 opacity-20"></div>
+                        <div id="poll-progress-bar"
+                            class="h-full bg-gradient-to-r from-red-900 to-red-600 w-0 transition-all duration-1000">
+                        </div>
+                        <div
+                            class="absolute inset-0 flex items-center justify-center text-xs font-bold text-white tracking-widest uppercase">
+                            Days until Reveal: <span id="days-remaining" class="ml-2">365</span>
+                        </div>
+                    </div>
+
+                    <!-- Campaign Actions -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 opacity-50 pointer-events-none transition-all duration-500"
+                        id="campaign-actions">
+                        <!-- Legit Campaign -->
+                        <div class="panel p-6 rounded-lg border-t-4 border-blue-500 hover:bg-gray-800">
+                            <h3 class="text-xl font-bold text-blue-400 mb-2">Social Push</h3>
+                            <p class="text-xs text-gray-400 mb-4">Beg your fans to vote. Looks desperate, but works.</p>
+                            <button onclick="runCampaign('beg')"
+                                class="w-full py-2 bg-blue-900 hover:bg-blue-800 text-white font-bold rounded">
+                                Beg for Votes (-20 Energy)
+                            </button>
+                        </div>
+
+                        <!-- Tour Campaign -->
+                        <div class="panel p-6 rounded-lg border-t-4 border-purple-500 hover:bg-gray-800">
+                            <h3 class="text-xl font-bold text-purple-400 mb-2">Vote Bus Tour</h3>
+                            <p class="text-xs text-gray-400 mb-4">Host free pop-up raves with iPads for voting.</p>
+                            <button onclick="runCampaign('tour')"
+                                class="w-full py-2 bg-purple-900 hover:bg-purple-800 text-white font-bold rounded">
+                                Launch Bus (-€2,000)
+                            </button>
+                        </div>
+
+                        <!-- Illegal Campaign -->
+                        <div
+                            class="panel p-6 rounded-lg border-t-4 border-red-500 hover:bg-gray-800 relative overflow-hidden group">
+                            <div class="absolute inset-0 bg-red-900/10 group-hover:bg-red-900/20 transition-all"></div>
+                            <h3 class="text-xl font-bold text-red-500 mb-2">Click Farm</h3>
+                            <p class="text-xs text-gray-400 mb-4">Hire 5,000 people in a basement to vote for you.</p>
+                            <div class="text-xs text-yellow-500 mb-2 font-bold"><i
+                                    class="fas fa-exclamation-triangle"></i> Risk: Scandal</div>
+                            <button onclick="runCampaign('buy')"
+                                class="w-full py-2 bg-red-900 hover:bg-red-800 text-white font-bold rounded relative z-10">
+                                Buy 5k Votes (-€5,000)
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="campaign-lock-msg" class="text-center text-gray-500 italic mt-4">
+                        Voting opens in Month 10 (October). Prepare your war chest.
+                    </div>
+                </div>
+
+                <!-- TAB: STUDIO -->
+                <div id="tab-studio" class="tab-content hidden-view space-y-6">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-3xl brand-font neon-text-blue">Studio</h2>
+                        <button onclick="openGearShop()"
+                            class="text-xs bg-gray-800 px-3 py-1 rounded border border-gray-600 hover:text-white hover:border-white transition-colors">
+                            <i class="fas fa-shopping-cart mr-1"></i> Buy Gear
+                        </button>
+                    </div>
+
+                    <!-- Gear Rack Display -->
+                    <div id="gear-rack"
+                        class="flex gap-2 mb-4 overflow-x-auto h-16 items-center bg-black/30 p-2 rounded border border-gray-800">
+                        <div class="text-gray-600 text-xs italic">Empty Rack Slot...</div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Prod Panel -->
+                        <div class="panel p-6 rounded-xl border border-gray-700 relative">
+                            <!-- Click Areas -->
+                            <div class="space-y-6">
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1 text-gray-400"><span>KICK &
+                                            BASS</span> <span id="prog-kick">0%</span></div>
+                                    <div class="bg-black h-4 rounded-full overflow-hidden cursor-pointer"
+                                        onclick="producePart('kick', event)">
+                                        <div id="bar-kick" class="bg-blue-600 h-full w-0 transition-all duration-200">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1 text-gray-400"><span>LEADS</span>
+                                        <span id="prog-lead">0%</span></div>
+                                    <div class="bg-black h-4 rounded-full overflow-hidden cursor-pointer"
+                                        onclick="producePart('lead', event)">
+                                        <div id="bar-lead" class="bg-purple-600 h-full w-0 transition-all duration-200">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1 text-gray-400"><span>ATMOSPHERE</span>
+                                        <span id="prog-fx">0%</span></div>
+                                    <div class="bg-black h-4 rounded-full overflow-hidden cursor-pointer"
+                                        onclick="producePart('fx', event)">
+                                        <div id="bar-fx" class="bg-pink-600 h-full w-0 transition-all duration-200">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Finish Panel -->
+                        <div
+                            class="panel p-6 rounded-xl border border-gray-700 flex flex-col justify-between text-center">
+                            <div>
+                                <div class="text-5xl font-bold text-white mb-2" id="current-quality">0</div>
+                                <div class="text-xs text-gray-500 uppercase">Track Quality</div>
+                            </div>
+                            <div class="mt-4 space-y-2">
+                                <select id="track-genre"
+                                    class="w-full bg-black border border-gray-600 text-white p-2 rounded text-sm">
+                                    <option value="Uplifting">Uplifting</option>
+                                    <option value="Tech">Tech Trance</option>
+                                    <option value="Psy">Psy Trance</option>
+                                    <option value="BigRoom">Big Room</option>
+                                </select>
+                                <button onclick="finishTrack()" id="btn-finish"
+                                    class="w-full py-3 bg-green-700 hover:bg-green-600 text-white font-bold rounded disabled:opacity-30"
+                                    disabled>
+                                    FINISH TRACK
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: SOCIALS (Simplified for V3) -->
+                <div id="tab-socials" class="tab-content hidden-view space-y-6">
+                    <h2 class="text-2xl brand-font text-white">Social Feed</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 h-[400px]">
+                        <div class="panel p-4 space-y-2">
+                            <button onclick="doSocial('post', event)"
+                                class="w-full py-3 bg-blue-900/50 border border-blue-500 text-blue-200 rounded hover:bg-blue-900">Post
+                                Photo (-10 En)</button>
+                            <button onclick="doSocial('video', event)"
+                                class="w-full py-3 bg-pink-900/50 border border-pink-500 text-pink-200 rounded hover:bg-pink-900">Live
+                                Stream (-20 En)</button>
+                            <div class="h-px bg-gray-700 my-4"></div>
+                            <button onclick="doSocial('buybot', event)"
+                                class="w-full py-2 bg-gray-800 border border-gray-600 text-gray-300 rounded hover:bg-gray-700 text-sm">Buy
+                                1k Bots (€500)</button>
+                        </div>
+                        <div class="panel p-0 flex flex-col rounded overflow-hidden">
+                            <div class="bg-gray-800 p-2 text-xs font-bold text-gray-500">COMMENTS</div>
+                            <div id="social-feed" class="flex-1 overflow-y-auto p-2 space-y-2 bg-black/30 text-sm">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: GIGS -->
+                <div id="tab-tour" class="tab-content hidden-view space-y-6">
+                    <h2 class="text-2xl brand-font text-white">Booking Agent</h2>
+                    <div id="gig-list" class="space-y-3">
+                        <!-- JS Gen -->
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer Log -->
+            <footer class="h-24 bg-black border-t border-gray-800 p-2 font-mono text-xs overflow-y-auto text-gray-400"
+                id="game-log">
+                <div class="text-green-500">System v3.0 loaded. Calendar active.</div>
+            </footer>
+
+            <!-- Mobile Nav -->
+            <div
+                class="md:hidden h-16 bg-black border-t border-gray-800 grid grid-cols-5 absolute bottom-0 w-full z-40">
+                <button onclick="switchTab('dashboard')"
+                    class="text-blue-400 flex flex-col items-center justify-center"><i
+                        class="fas fa-chart-pie mb-1"></i><span class="text-[10px]">Dash</span></button>
+                <button onclick="switchTab('production')"
+                    class="text-gray-400 flex flex-col items-center justify-center"><i
+                        class="fas fa-sliders-h mb-1"></i><span class="text-[10px]">Studio</span></button>
+                <button onclick="switchTab('socials')"
+                    class="text-gray-400 flex flex-col items-center justify-center"><i
+                        class="fas fa-hashtag mb-1"></i><span class="text-[10px]">Social</span></button>
+                <button onclick="switchTab('poll')" class="text-yellow-500 flex flex-col items-center justify-center"><i
+                        class="fas fa-trophy mb-1 animate-pulse"></i><span class="text-[10px]">POLL</span></button>
+                <button onclick="switchTab('tour')" class="text-gray-400 flex flex-col items-center justify-center"><i
+                        class="fas fa-plane mb-1"></i><span class="text-[10px]">Gigs</span></button>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODALS -->
+
+    <!-- POLL REVEAL MODAL -->
+    <div id="modal-poll-reveal"
+        class="fixed inset-0 z-[100] hidden-view bg-black flex flex-col items-center justify-center p-6">
+        <h1 class="text-4xl md:text-6xl text-yellow-500 brand-font mb-8 animate-float">TOP 100 RESULTS</h1>
+
+        <div
+            class="w-full max-w-md bg-gray-900 border-2 border-yellow-600 rounded-lg p-6 text-center space-y-6 relative overflow-hidden">
+            <div class="absolute inset-0 bg-yellow-500/10 animate-pulse pointer-events-none"></div>
+
+            <div class="text-gray-400 text-sm uppercase tracking-widest">Your Rank</div>
+            <div id="reveal-rank-num"
+                class="text-8xl font-black text-white brand-font scale-0 transition-transform duration-1000">#99</div>
+
+            <div id="reveal-message" class="text-gray-300 italic opacity-0 transition-opacity duration-1000">"Not bad
+                for a bedroom producer."</div>
+
+            <div class="border-t border-gray-700 pt-4 mt-4">
+                <div class="flex justify-between text-sm">
+                    <span class="text-gray-500">New Booking Fee:</span>
+                    <span class="text-green-400 font-bold">€<span id="reveal-fee">0</span></span>
+                </div>
+            </div>
+
+            <button onclick="closePollReveal()"
+                class="w-full py-3 bg-yellow-700 hover:bg-yellow-600 text-white font-bold rounded uppercase mt-4">
+                Accept New Reality
+            </button>
+        </div>
+    </div>
+
+    <!-- GEAR SHOP MODAL -->
+    <div id="modal-gear"
+        class="fixed inset-0 z-[90] hidden-view bg-black/90 backdrop-blur flex items-center justify-center p-4">
+        <div class="bg-gray-900 border border-gray-600 rounded-lg w-full max-w-2xl max-h-[80vh] flex flex-col">
+            <div class="p-4 border-b border-gray-700 flex justify-between items-center">
+                <h2 class="text-xl text-white brand-font">Thomann Gear Shop</h2>
+                <button onclick="document.getElementById('modal-gear').classList.add('hidden-view')"
+                    class="text-gray-400 hover:text-white"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="p-4 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-4" id="gear-list">
+                <!-- JS Gen -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* --- GAME CONFIG --- */
+        const GEAR_ITEMS = [
+            { id: 'monitors', name: 'KRK Rokits', cost: 500, qualityBonus: 5, icon: 'fa-volume-up' },
+            { id: 'synth1', name: 'Virus TI Snow', cost: 2000, qualityBonus: 10, icon: 'fa-keyboard' },
+            { id: 'acoustics', name: 'Foam Panels', cost: 1000, qualityBonus: 5, icon: 'fa-box' },
+            { id: 'analog', name: 'Analog Heat', cost: 5000, qualityBonus: 20, icon: 'fa-fire' },
+            { id: 'engineer', name: 'Mixing Engineer', cost: 10000, qualityBonus: 30, icon: 'fa-user-tie' }
+        ];
+
+        const GIGS = [
+            { id: 'bar', name: 'Local Bar', reqRank: 999999, fee: 100 },
+            { id: 'club', name: 'Club Glow', reqRank: 50000, fee: 1000 },
+            { id: 'theater', name: 'O2 Academy', reqRank: 10000, fee: 5000 },
+            { id: 'festival', name: 'Ultra Side Stage', reqRank: 1000, fee: 15000 },
+            { id: 'mainstage', name: 'Tomorrowland Main', reqRank: 100, fee: 100000 }
+        ];
+
+        let game = {
+            type: 'virtuoso',
+            cash: 100,
+            fans: 0,
+            energy: 100,
+            hype: 0,
+
+            // Calendar
+            day: 1,
+            year: 2026,
+            pollOpen: false,
+
+            // Production
+            track: { kick: 0, lead: 0, fx: 0, q: 0 },
+            gear: [],
+            tracks: [],
+
+            // Stats
+            rank: 100000,
+            pollVotes: 0
+        };
+
+        let tickInterval;
+
+        /* --- CORE --- */
+
+        function startGame(type) {
+            game.type = type;
+            if (type === 'plant') {
+                game.cash = 10000;
+                game.fans = 5000;
+            }
+
+            document.getElementById('intro-screen').classList.add('hidden-view');
+            document.getElementById('game-ui').classList.remove('hidden-view');
+            document.getElementById('game-ui').classList.remove('opacity-0');
+
+            tickInterval = setInterval(gameLoop, 1000);
+            renderGearShop();
+            renderGigs();
+            log("Career started. Good luck.", "text-white");
+        }
+
+        function gameLoop() {
+            // Energy Regen
+            if (game.energy < 100) game.energy += 0.5;
+
+            // Calendar
+            game.day++;
+            if (game.day > 365) {
+                game.day = 1;
+                game.year++;
+            }
+
+            // Hype Decay
+            if (game.day % 7 === 0 && game.hype > 0) game.hype--;
+
+            // Poll Logic
+            const daysLeft = 300 - game.day; // Vote Reveal at day 300
+
+            if (game.day >= 270 && game.day < 300) {
+                // Voting Season (Month 10)
+                if (!game.pollOpen) {
+                    game.pollOpen = true;
+                    log("TOP 100 VOTING IS NOW OPEN! CAMPAIGN NOW!", "text-yellow-400 font-bold");
+                    document.getElementById('nav-poll').classList.add('animate-pulse', 'bg-yellow-900');
+                    updatePollUI(); // Unlock actions
+                }
+            } else if (game.day === 300) {
+                // Reveal Day
+                game.pollOpen = false;
+                triggerPollReveal();
+            } else {
+                game.pollOpen = false;
+            }
+
+            // Passive Voting Logic (if campaign active or just high fans)
+            if (game.pollOpen) {
+                // Organic votes based on fans + hype
+                let organic = Math.floor(game.fans * (game.hype / 100) * 0.01);
+                game.pollVotes += organic;
+            }
+
+            updateUI();
+        }
+
+        /* --- PRODUCTION --- */
+
+        function producePart(part, e) {
+            if (game.energy < 2) {
+                floatText(e.clientX, e.clientY, "No Energy", "text-red-500");
+                return;
+            }
+            game.energy -= 2;
+
+            // Gear Bonus
+            let bonus = 0;
+            game.gear.forEach(gId => {
+                const g = GEAR_ITEMS.find(i => i.id === gId);
+                if (g) bonus += 2; // Slight speed boost per gear
+            });
+
+            let amount = 10 + bonus + (Math.random() * 5);
+
+            if (part === 'kick') game.track.kick = Math.min(100, game.track.kick + amount);
+            if (part === 'lead') game.track.lead = Math.min(100, game.track.lead + amount);
+            if (part === 'fx') game.track.fx = Math.min(100, game.track.fx + amount);
+
+            // Calc Q
+            let baseQ = (game.track.kick + game.track.lead + game.track.fx) / 3;
+            // Gear Quality Bonus (Only applied visually until finish)
+            let gearQ = 0;
+            game.gear.forEach(gId => {
+                const g = GEAR_ITEMS.find(i => i.id === gId);
+                if (g) gearQ += g.qualityBonus;
+            });
+
+            game.track.q = Math.floor(baseQ);
+
+            document.getElementById(`bar-${part}`).style.width = game.track[part] + '%';
+            document.getElementById(`prog-${part}`).innerText = Math.floor(game.track[part]) + '%';
+            document.getElementById('current-quality').innerText = Math.floor(baseQ + gearQ); // Preview
+
+            if (baseQ >= 95) document.getElementById('btn-finish').disabled = false;
+
+            floatText(e.clientX, e.clientY, "+Sound", "text-blue-400");
+        }
+
+        function finishTrack() {
+            let gearQ = 0;
+            game.gear.forEach(gId => { gearQ += GEAR_ITEMS.find(i => i.id === gId).qualityBonus; });
+
+            let finalQ = game.track.q + gearQ;
+            let genre = document.getElementById('track-genre').value;
+
+            game.tracks.push({ q: finalQ, genre: genre, year: game.year });
+            game.track = { kick: 0, lead: 0, fx: 0, q: 0 }; // Reset
+
+            // Rewards
+            game.fans += finalQ * 10;
+            game.cash += finalQ * 5; // Streaming revenue placeholder
+
+            log(`Track released: ${genre} (Quality: ${finalQ}). Fans +${finalQ * 10}`, "text-green-400");
+
+            // Reset UI
+            ['kick', 'lead', 'fx'].forEach(p => {
+                document.getElementById(`bar-${p}`).style.width = '0%';
+                document.getElementById(`prog-${p}`).innerText = '0%';
+            });
+            document.getElementById('current-quality').innerText = '0';
+            document.getElementById('btn-finish').disabled = true;
+        }
+
+        /* --- POLL SYSTEM --- */
+
+        function runCampaign(type) {
+            if (!game.pollOpen) return;
+
+            if (type === 'buy') {
+                if (game.cash < 5000) { log("Need €5000", "text-red-500"); return; }
+                game.cash -= 5000;
+                game.pollVotes += 15000; // Big boost
+                game.hype += 10;
+
+                // Risk
+                if (Math.random() > 0.8) {
+                    log("SCANDAL! Click farm exposed. Fans lost.", "text-red-500 font-bold");
+                    game.fans = Math.floor(game.fans * 0.8);
+                } else {
+                    log("Votes bought. Shady but effective.", "text-pink-400");
+                }
+            }
+            if (type === 'beg') {
+                if (game.energy < 20) return;
+                game.energy -= 20;
+                game.pollVotes += 500 + (game.fans * 0.1);
+                game.hype -= 2; // Look desperate
+                log("Begged for votes on Instagram.", "text-blue-300");
+            }
+            if (type === 'tour') {
+                if (game.cash < 2000) return;
+                game.cash -= 2000;
+                game.pollVotes += 5000;
+                game.hype += 20;
+                log("Vote Bus Tour huge success!", "text-purple-400");
+            }
+        }
+
+        function triggerPollReveal() {
+            // Calc Final Rank
+            // Formula: Votes + (Fans / 10)
+            let score = game.pollVotes + (game.fans / 2);
+
+            // Fake the other DJ scores
+            // Rank 1 usually needs 1,000,000 score
+            // Rank 100 needs 5,000 score
+
+            let newRank = 101;
+            if (score > 5000) newRank = 100;
+            if (score > 10000) newRank = 80;
+            if (score > 50000) newRank = 50;
+            if (score > 200000) newRank = 20;
+            if (score > 500000) newRank = 10;
+            if (score > 1000000) newRank = 1;
+
+            game.rank = newRank;
+            game.pollVotes = 0; // Reset for next year
+
+            // UI
+            document.getElementById('modal-poll-reveal').classList.remove('hidden-view');
+
+            setTimeout(() => {
+                const rankEl = document.getElementById('reveal-rank-num');
+                rankEl.innerText = "#" + newRank;
+                rankEl.style.transform = "scale(1)";
+
+                const msgEl = document.getElementById('reveal-message');
+                msgEl.style.opacity = 1;
+
+                if (newRank === 1) msgEl.innerText = "THE NEW KING OF TRANCE. QUANTUM SOLAR IS DEFEATED.";
+                else if (newRank <= 20) msgEl.innerText = "Mainstage material. Fees increasing massively.";
+                else if (newRank <= 100) msgEl.innerText = "You made the list! Promoter interest rising.";
+                else msgEl.innerText = "Still a nobody. Try buying more votes next year.";
+
+                // Calculate Fee
+                let fee = 100;
+                if (newRank <= 100) fee = 2000 + ((100 - newRank) * 500);
+                if (newRank <= 10) fee = 50000 + ((10 - newRank) * 10000);
+
+                document.getElementById('reveal-fee').innerText = fee.toLocaleString();
+            }, 500);
+        }
+
+        function closePollReveal() {
+            document.getElementById('modal-poll-reveal').classList.add('hidden-view');
+            log(`Year ${game.year} Poll ended. Rank: #${game.rank}`, "text-yellow-400");
+            updatePollUI(); // Reset bars
+            renderGigs(); // Unlock gigs
+        }
+
+        /* --- SHOP & GIGS --- */
+
+        function renderGearShop() {
+            const list = document.getElementById('gear-list');
+            list.innerHTML = '';
+            GEAR_ITEMS.forEach(item => {
+                const owned = game.gear.includes(item.id);
+                list.innerHTML += `
+                    <div class="bg-gray-800 p-3 rounded flex justify-between items-center ${owned ? 'opacity-50' : ''}">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-black rounded flex items-center justify-center text-blue-400"><i class="fas ${item.icon}"></i></div>
+                            <div>
+                                <div class="font-bold text-white">${item.name}</div>
+                                <div class="text-xs text-gray-400">+${item.qualityBonus} Quality</div>
+                            </div>
+                        </div>
+                        <button onclick="buyGear('${item.id}', ${item.cost})" ${owned ? 'disabled' : ''} class="px-3 py-1 bg-blue-900 rounded text-xs text-white">
+                            ${owned ? 'Owned' : '€' + item.cost}
+                        </button>
+                    </div>
+                `;
+            });
+        }
+
+        function buyGear(id, cost) {
+            if (game.cash < cost) return;
+            game.cash -= cost;
+            game.gear.push(id);
+            renderGearShop();
+
+            // Add icon to rack
+            const item = GEAR_ITEMS.find(i => i.id === id);
+            const rack = document.getElementById('gear-rack');
+            if (rack.innerText.includes('Empty')) rack.innerHTML = '';
+            rack.innerHTML += `<div class="w-10 h-10 bg-gray-800 border border-gray-600 rounded flex items-center justify-center text-blue-300" title="${item.name}"><i class="fas ${item.icon}"></i></div>`;
+        }
+
+        function openGearShop() {
+            document.getElementById('modal-gear').classList.remove('hidden-view');
+        }
+
+        function renderGigs() {
+            const list = document.getElementById('gig-list');
+            list.innerHTML = '';
+            GIGS.forEach(gig => {
+                const locked = game.rank > gig.reqRank;
+                list.innerHTML += `
+                    <div class="bg-gray-800 p-4 rounded flex justify-between items-center border-l-4 ${locked ? 'border-gray-600 opacity-50' : 'border-green-500'}">
+                        <div>
+                            <div class="font-bold text-white">${gig.name}</div>
+                            <div class="text-xs text-gray-400">Req: Top ${gig.reqRank}</div>
+                        </div>
+                        <div>
+                            <div class="text-green-400 font-bold mb-1">€${gig.fee.toLocaleString()}</div>
+                            <button onclick="playGig(${gig.fee})" ${locked ? 'disabled' : ''} class="px-4 py-1 bg-gray-700 hover:bg-green-700 rounded text-xs text-white transition-colors">
+                                ${locked ? 'LOCKED' : 'PLAY'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function playGig(fee) {
+            if (game.energy < 30) { log("Too tired to perform.", "text-red-500"); return; }
+            game.energy -= 30;
+            game.cash += fee;
+            game.fans += Math.floor(fee / 10);
+            game.hype += 5;
+            floatText(window.innerWidth / 2, window.innerHeight / 2, "EPIC SET!", "text-green-400");
+            log(`Performed gig. Earned €${fee}`, "text-green-400");
+        }
+
+        /* --- SOCIAL --- */
+
+        function doSocial(type, e) {
+            if (game.energy < 10) return;
+            game.energy -= 10;
+
+            if (type === 'buybot') {
+                if (game.cash < 500) return;
+                game.cash -= 500;
+                game.fans += 1000;
+                log("Bots purchased.", "text-gray-500");
+                return;
+            }
+
+            // Random comment
+            const comments = ["Fire emoji", "Who?", "Collab bro?", "Come to Brazil", "Weak drop", "Legend"];
+            const txt = comments[Math.floor(Math.random() * comments.length)];
+
+            const div = document.createElement('div');
+            div.innerHTML = `<span class="text-blue-400 font-bold">User${Math.floor(Math.random() * 100)}:</span> ${txt}`;
+            document.getElementById('social-feed').prepend(div);
+
+            game.hype += 2;
+            floatText(e.clientX, e.clientY, "+Hype", "text-pink-500");
+        }
+
+        /* --- UI HELPERS --- */
+
+        function updateUI() {
+            // Stats
+            document.getElementById('stat-cash').innerText = game.cash.toLocaleString();
+            document.getElementById('stat-fans').innerText = game.fans.toLocaleString();
+            document.getElementById('stat-energy').innerText = Math.floor(game.energy);
+
+            // Dash
+            document.getElementById('dash-fee').innerText = (game.rank <= 100 ? (100 - game.rank) * 1000 : 100).toLocaleString();
+            document.getElementById('dash-hype').innerText = game.hype;
+            document.getElementById('dash-tracks').innerText = game.tracks.length;
+            document.getElementById('dash-last-rank').innerText = game.rank < 100000 ? game.rank : "N/A";
+
+            // Sidebar
+            document.getElementById('sidebar-rank').innerText = game.rank < 100000 ? game.rank : "Unranked";
+            document.getElementById('game-date').innerText = `Day ${game.day}, Year ${game.year}`;
+
+            // Poll Widget
+            if (game.day < 300) {
+                document.getElementById('poll-timer').innerText = (300 - game.day) + " DAYS";
+            } else {
+                document.getElementById('poll-timer').innerText = "VOTING CLOSED";
+            }
+
+            updatePollUI();
+        }
+
+        function updatePollUI() {
+            const bar = document.getElementById('poll-progress-bar');
+            const status = document.getElementById('poll-status');
+            const actions = document.getElementById('campaign-actions');
+            const daysLabel = document.getElementById('days-remaining');
+            const lockMsg = document.getElementById('campaign-lock-msg');
+
+            const daysLeft = 300 - game.day;
+
+            if (game.pollOpen) {
+                // Open visual
+                bar.parentElement.classList.remove('opacity-50');
+                // Calculate percentage of voting month (Day 270 to 300)
+                let percent = ((game.day - 270) / 30) * 100;
+                bar.style.width = percent + '%';
+
+                status.innerText = "OPEN";
+                status.classList.remove('text-red-500');
+                status.classList.add('text-green-500', 'animate-pulse');
+
+                actions.classList.remove('opacity-50', 'pointer-events-none');
+                lockMsg.classList.add('hidden-view');
+                daysLabel.innerText = daysLeft + " DAYS LEFT";
+            } else {
+                // Closed visual
+                bar.style.width = '0%';
+                status.innerText = "CLOSED";
+                status.classList.add('text-red-500');
+                status.classList.remove('text-green-500', 'animate-pulse');
+
+                actions.classList.add('opacity-50', 'pointer-events-none');
+                lockMsg.classList.remove('hidden-view');
+
+                if (game.day < 270) daysLabel.innerText = "Opens in " + (270 - game.day) + " days";
+                else daysLabel.innerText = "Revealed";
+            }
+        }
+
+        function switchTab(id) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden-view'));
+            document.getElementById('tab-' + id).classList.remove('hidden-view');
+        }
+
+        function floatText(x, y, txt, colorClass) {
+            const el = document.createElement('div');
+            el.className = `float-text ${colorClass} text-lg`;
+            el.style.left = x + 'px';
+            el.style.top = y + 'px';
+            el.innerText = txt;
+            document.getElementById('float-text-container').appendChild(el);
+            setTimeout(() => el.remove(), 1000);
+        }
+
+        function log(msg, cls) {
+            const logEl = document.getElementById('game-log');
+            logEl.innerHTML = `<div class="${cls}">[Day ${game.day}] ${msg}</div>` + logEl.innerHTML;
+        }
+
+    </script>
+</body>
+
+</html>

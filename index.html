@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ascension: Trance Tycoon 2026</title>
+    <!-- Tailwind CSS (CDN for Speed/Simplicity in this env, but usually integrated via PostCSS) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-pink': '#ff00ff',
+                        'neon-blue': '#00ffff',
+                        'matrix-green': '#00ff00',
+                        'dark-bg': '#0a0a0a',
+                        'panel-bg': '#111111' // Slightly lighter dark
+                    },
+                    fontFamily: {
+                        'mono': ['"Courier New"', 'Courier', 'monospace'],
+                        'sans': ['"Segoe UI"', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'] // Clean UI font
+                    },
+                    animation: {
+                        'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glitch': 'glitch 1s linear infinite',
+                    },
+                    keyframes: {
+                        glitch: {
+                            '2%, 64%': { transform: 'translate(2px,0) skew(0deg)' },
+                            '4%, 60%': { transform: 'translate(-2px,0) skew(0deg)' },
+                            '62%': { transform: 'translate(0,0) skew(5deg)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;600;800&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+
+<body class="bg-black text-gray-300 font-sans overflow-hidden select-none">
+
+    <!-- CRT/Scanline Overlay -->
+    <div
+        class="pointer-events-none fixed inset-0 z-50 overflow-hidden h-full w-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03]">
+    </div>
+    <div
+        class="pointer-events-none fixed inset-0 z-50 bg-gradient-to-b from-transparent via-[rgba(0,255,0,0.02)] to-transparent bg-[length:100%_4px] animate-pulse">
+    </div>
+
+    <div id="game-root"
+        class="relative w-full h-full max-w-md mx-auto bg-dark-bg border-x border-gray-800 shadow-2xl flex flex-col">
+        <!-- JS App Mounts Here -->
+        <div class="flex items-center justify-center h-full text-neon-blue font-mono animate-pulse">
+            LOADING ASCENSION v2.0...
+        </div>
+    </div>
+
+    <!-- Vite Entry Point -->
+    <script type="module" src="/src/index.ts"></script>
+</body>
+
+</html>
