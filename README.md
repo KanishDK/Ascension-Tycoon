@@ -1,66 +1,76 @@
-# Ascension: Trance Tycoon 2026 (v2.0)
+# ASCENSION: Protocol 2026
 
-> "The Underground is waiting. The Algorithm is watching."
+> *"The kick drum is the heartbeat. The bassline is the soul. Everything else is just decoration."*
 
-**Ascension** is a satirical, cyberpunk-themed idle tycoon game where you rise from a bedroom producer to a global EDM icon. Manage your energy, produce tracks, sign to labels, tour the world, and battle rival DJs in a fight for the soul of the scene.
+## 🌃 The Simulation
+Welcome to **Ascension**, a hyper-fidelity simulation of the 2026 Electronic Dance Music underground. You begin as a ghost—a bedroom producer with cracked software, €0 in the bank, and a dream that burns brighter than a neon sign in the rain.
 
-![Status](https://img.shields.io/badge/Status-Galactic_Master-neon--blue)
-![Tech](https://img.shields.io/badge/Tech-Vite_PWA_TypeScript-ff00ff)
+Your objective is simple yet impossible: **Dominate the Global Trance Scene.**
 
-## 🎮 Play Now
-* **Web**: [Deployment URL]
-* **Install**: Click the "Install App" or (+) button in your browser address bar to install as a native app on Desktop or Mobile.
+But the algorithm is rigged. The "Industry Plants" have daddy's money. The "Mainstage Clowns" play pre-recorded sets. And you? You have your ears, your integrity, and a laptop that overheats if you run more than three instances of Serum.
 
-## ✨ Key Features
-- **The Studio**: Deep production mechanics. Balance Kick, Synth, and FX to hit the perfect "Quality" score.
-- **The Scene**: 5 unlockable genres (Tech, Psy, Uplifting, etc.) and dynamic Labels with acceptance criteria.
-- **The World**: A living social feed that reacts to your music.
-- **Rivals**: Battle against Charlotte de Witte (Bot), Armin van Buuren (Bot), and the evil Quantum Solar Corp.
-- **Progression**: 
-    - **20-Mission Story Campaign**: "The Signal".
-    - **Producer Levels (1-20)**: Earn XP to unlock pro gear (Analog Synths, Yachts).
-    - **Achievements**: Become an "Underground God" or a "Corporate Shill".
-- **Tech Stack**: Built with **Vite**, **TypeScript**, and **PWA** technologies for instant loading and offline support.
+## 🕹️ Systems Online
 
-## 🛠️ Installation (Developer)
+### 1. The Grind (Idle Economy)
+Every millisecond counts. Your studio generates royalties while you sleep, but true wealth requires active intervention.
+*   **The Studio:** Upgrade your acoustic foam, buy better monitors, and install subwoofers that rattle the tectonic plates.
+*   **The Hustle:** Host weekly radio shows to build Hype. Sell out to the ghost production market for quick cash (at the cost of your Soul).
+*   **The Laboratory:** When energy fades, visit the black market for "Yerba Mate" imports or "Unauthorized Stimulants." Watch your heart rate.
 
-### Prerequisites
-- Node.js (v18+)
+### 2. The Visuals (React Three Fiber)
+Experience the rave in real-time.
+*   **Crowd Simulation:** 10,000 unique agents react to your music. They dance, they idle, they mosh.
+*   **Audio-Reactive Lighting:** The lasers don't just move randomly; they sync to the sub-bass frequencies of your track. When the drop hits, the world explodes in Neon Cyan and Magenta.
 
-### Setup
-1. Clone the repository.
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Start the dev server:
-   ```bash
-   npm run dev
-   ```
-4. Build for production:
-   ```bash
-   npm run build
-   ```
-
-## 📂 Project Structure
-```
-src/
-├── core/           # Game Loop, State Management (GameState.ts)
-├── data/           # Static Data (Missions, Items, Rivals, Formulas)
-├── systems/        # Logic (Production, Shop, Touring, Social, SaveSystem)
-├── ui/             # UI Components (StudioUI, ShopUI, MissionUI, SettingsUI)
-└── index.ts        # Entry Point
-```
-
-## 🕹️ Controls
-- **Click**: Produce music, navigate menus.
-- **Save**: The game auto-saves every 30 seconds. Manual save available in Settings.
-- **Reset**: Hard Reset available in Settings (The "Danger Zone").
-
-## 🏆 Credits
-- **Concept & Code**: Antigravity AI (Google Deepmind)
-- **Lead Designer**: [User Name]
-- **Engine**: Custom TypeScript State Engine (No external game engines used)
+### 3. The Rivals (Boss Battles)
+You are not alone.
+*   **Charlotte:** The Techno Queen. Cold, calculated, efficient.
+*   **Mike:** The Mainstage puppet. All Hype, no Integrity.
+*   **The Corporation:** The final boss. A faceless entity controlling the beatport charts.
+*   **B2B Mode:** Defeat them to unlock the "World Tour" co-op functionality.
 
 ---
-*Ascension © 2026. Do not feed the Algorithm.*
+
+## 💾 Technical Schematics
+
+This simulation runs on the **M.E.R.N. Killer** stack (Modern, Ephemeral, Reactive, Neon).
+
+*   **Core:** React 18 + TypeScript (The Brain)
+*   **State:** Zustand (The Memory)
+*   **Visuals:** React Three Fiber + Drei + Custom Shaders (The Eyes)
+*   **Audio:** Web Audio API (The Ears)
+*   **Persistence:** Dexie.js / IndexedDB (The Soul)
+*   **Build:** Vite (The Engine)
+
+### Installation Protocol
+
+1.  **Clone the Repository:**
+    ```bash
+    git clone https://github.com/StartSomethingStudios/Ascension-Tycoon.git
+    ```
+
+2.  **Install Dependencies:**
+    ```bash
+    npm install
+    ```
+
+3.  **Initiate Dev Sequence:**
+    ```bash
+    npm run dev
+    ```
+
+4.  **compile_final_binary.exe:**
+    ```bash
+    npm run build
+    ```
+
+---
+
+## ⚠️ Warning
+Prolonged exposure to 140 BPM may cause involuntary foot tapping, a desire to wear sunglasses indoors, and a sudden appreciation for arpeggios.
+
+**System Status:** `ONLINE`
+**Version:** `1.0.0 [PLATINUM]`
+**Developer:** `Antigravity Agent`
+
+> *See you on the dancefloor.*

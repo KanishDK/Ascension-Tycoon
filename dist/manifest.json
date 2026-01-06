@@ -1,0 +1,17 @@
+{
+    "name": "Ascension: Trance Tycoon 2026",
+    "short_name": "Ascension",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#01162b",
+    "theme_color": "#01162b",
+    "description": "The ultimate cyberpunk trance music tycoon. Build your empire.",
+    "icons": [
+        {
+            "src": "/vite.svg",
+            "sizes": "512x512",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ]
+}
